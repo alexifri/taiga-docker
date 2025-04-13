@@ -27,7 +27,14 @@ x-environment:
   RABBITMQ_PASS: "${RABBITMQ_PASS}"
   # Telemetry settings
   ENABLE_TELEMETRY: "${ENABLE_TELEMETRY}"
-  # ...your customizations go here
+  # Toggle public registration 
+  PUBLIC_REGISTER_ENABLED: "True"
+  # github auth
+  ENABLE_GITHUB_AUTH: "True"
+  GITHUB_API_CLIENT_ID: "github-client-id"
+  GITHUB_API_CLIENT_SECRET: "github-client-secret"
+
+
 
 x-volumes:
   &default-back-volumes
@@ -100,9 +107,12 @@ services:
     image: taigaio/taiga-front:latest
     environment:
       TAIGA_URL: "${TAIGA_SCHEME}://${TAIGA_DOMAIN}"
-      TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       TAIGA_SUBPATH: "${SUBPATH}"
+      TAIGA_WEBSOCKETS_URL: "${WEBSOCKETS_SCHEME}://${TAIGA_DOMAIN}"
       # ...your customizations go here
+      PUBLIC_REGISTER_ENABLED: "True"
+      ENABLE_GITHUB_AUTH: "true"
+      GITHUB_CLIENT_ID: "github-client-id"
     networks:
       - taiga
     # volumes:
